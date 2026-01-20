@@ -1,5 +1,7 @@
 import sounddevice as sd
 import numpy as np
+
+
 fs = 44100 # Sample rate (samples per second)
 duration = 10 # Duration in seconds
 channels = 1 # We are going for mono recording
@@ -10,7 +12,15 @@ rec = sd.rec(num, samplerate=fs, channels=channels, dtype='float64')
 sd.wait()
 print('Recording complete.')
 # Playback
-print('Playing recorded audio...')
-sd.play(rec, fs)
-sd.wait()
-print('Playback complete.')
+# print('Playing recorded audio...')
+# sd.play(rec, fs)
+# sd.wait()
+# print('Playback complete.')
+
+
+import matplotlib.pyplot as plt
+counts, bin_edges = np.histogram(rec, bins=100)
+bin_centers = (bin_edges[:-1]+bin_edges[1:])/2.0
+plt.plot(bin_centers, counts)
+plt.show()
+
