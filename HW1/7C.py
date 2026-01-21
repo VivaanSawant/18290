@@ -11,8 +11,20 @@ xi = np.imag(x)
 mag = np.abs(x)
 ph = np.angle(x)
 
-plt.figure(); plt.stem(n, xr); plt.title("Real"); plt.xlabel("n"); 
-plt.figure(); plt.stem(n, xi); plt.title("Imaginary"); plt.xlabel("n");
-plt.figure(); plt.stem(n, mag); plt.title("|x[n]|"); plt.xlabel("n");
-plt.figure(); plt.stem(n, ph); plt.title("Angle x[n]"); plt.xlabel("n");
+plt.figure(); 
+plt.stem(n, xr); 
+plt.title("Real"); 
+plt.xlabel("n"); 
+plt.figure(); 
+plt.stem(n, xi); 
+plt.title("Imaginary"); 
+plt.xlabel("n");
+plt.figure(); 
+plt.stem(n, mag); 
+plt.title("|x[n]|"); 
+plt.xlabel("n");
+plt.figure(); 
+plt.stem(n, ph); 
+plt.title("Angle x[n]"); 
+plt.xlabel("n");
 plt.show()
