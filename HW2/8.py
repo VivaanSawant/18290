@@ -26,3 +26,45 @@ axes[1].set_ylabel('Intensity')
 
 plt.savefig('Row_1D_signals.png')
 plt.show()
+
+
+h1 = np.array([1, -1])
+
+imgoutput_b = np.zeros_like(img)
+
+for rr in range(img.shape[0]):
+    imgoutput_b[rr, :] = convolve(img[rr, :], h1, mode='same')
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+axes[0].imshow(img, cmap='gray')
+axes[0].set_title('Original Image')
+axes[0].axis('off')
+
+axes[1].imshow(imgoutput_b, cmap='gray')
+axes[1].set_title('Convolved with h1 = [1, -1]')
+axes[1].axis('off')
+
+plt.savefig('Convolution_b.png')
+plt.show()
+
+
+h2 = np.ones(10)
+
+imgoutput_c = np.zeros_like(img)
+
+for rr in range(img.shape[0]):
+    imgoutput_c[rr, :] = convolve(img[rr, :], h2, mode='same')
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+axes[0].imshow(img, cmap='gray')
+axes[0].set_title('Original Image')
+axes[0].axis('off')
+
+axes[1].imshow(imgoutput_c, cmap='gray')
+axes[1].set_title('Convolved with h2')
+axes[1].axis('off')
+
+plt.savefig('Convolution_c.png')
+plt.show()
