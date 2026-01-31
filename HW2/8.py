@@ -68,3 +68,30 @@ axes[1].axis('off')
 
 plt.savefig('Convolution_c.png')
 plt.show()
+
+
+
+D = 20 
+
+#h[n] = delta[n] + delta[n-D]
+h = np.zeros(D + 1)
+h[0] = 1
+h[D] = 1
+
+output = np.zeros_like(img)
+
+for rr in range(img.shape[0]):
+    output[rr, :] = convolve(img[rr, :], h, mode='same')
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+axes[0].imshow(img, cmap='gray')
+axes[0].set_title('Original Image')
+axes[0].axis('off')
+
+axes[1].imshow(output, cmap='gray')
+axes[1].set_title(f'Shifted copy added (D = {D})')
+axes[1].axis('off')
+
+plt.savefig('Convolution_d.png')
+plt.show()
