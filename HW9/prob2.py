@@ -25,7 +25,7 @@ def dft_convolution(x, h, M):
     y = np.fft.ifft(Y, n=M).real
     return y
 
-M = len(x)
+M = len(x) + len(h) - 1 + 4
 y = dft_convolution(x, h, M)
 
 print("y:", y)
