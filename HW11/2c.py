@@ -5,7 +5,7 @@ def sample_identity_rows(N, M):
     indices = np.random.choice(N, size=M, replace=False)
     return np.eye(N)[indices]
 
-def cgs(A, b, x0, max_iter=100, tol=1e-6):
+def cgs(A, b, x0, max_iter=200, tol=1e-6):
     x = x0.copy()
     r = b - A(x)
     p = r.copy()
@@ -26,8 +26,18 @@ def cgs(A, b, x0, max_iter=100, tol=1e-6):
 
     return x, errs
 
+def D(x):
+    return np.convolve(x, [1, -1], mode='valid')
+
+def DT(x):
+    return np.convolve(x, [-1, 1], mode='full')
+
+def DTD(x):
+    return DT(D(x))
+
 N = 128
 M = 64
+lam = 1.0
 
 H = sample_identity_rows(N, M)
 
@@ -36,7 +46,7 @@ x0 = np.cumsum(np.random.randn(N)/5)
 y = H @ x0 + 0.1 * np.random.randn(M)
 
 def A(x):
-    return H.T @ (H @ x)
+    return H.T @ (H @ x) + lam * DTD(x)
 
 b = H.T @ y
 
@@ -44,12 +54,12 @@ x_init = np.zeros(N)
 
 x_star, errs = cgs(A, b, x_init)
 
-print("Part A: Reconstructed signal x_star")
+print("Part C: Reconstructed signal x_star with gradient regularization")
 print(x_star)
 
 plt.figure()
 plt.plot(x0, label="Ground Truth x0")
 plt.plot(x_star, label="Reconstructed x_star")
 plt.legend()
-plt.title("Part A Reconstruction")
+plt.title("Part C Reconstruction")
 plt.show()
